@@ -1,0 +1,971 @@
+﻿{
+  "voxelgrid": {
+    "leaf_size": {
+      "x": 0.03,
+      "y": 0.03,
+      "z": 0.03
+    }
+  },
+  "labels": {
+    "10": {
+      "name": "car",
+      "visualize": true,
+      "color": [
+        245,
+        150,
+        100
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 10,
+        "max_cluster_volume": 50,
+        "bbox_method": "rigid"
+      }
+    },
+    "11": {
+      "name": "bicycle",
+      "visualize": false,
+      "color": [
+        245,
+        230,
+        100
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "13": {
+      "name": "bus",
+      "visualize": false,
+      "color": [
+        250,
+        80,
+        100
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "15": {
+      "name": "motorcycle",
+      "visualize": true,
+      "color": [
+        150,
+        60,
+        30
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "16": {
+      "name": "on-rails",
+      "visualize": false,
+      "color": [
+        255,
+        0,
+        0
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "18": {
+      "name": "truck",
+      "visualize": true,
+      "color": [
+        180,
+        30,
+        80
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "20": {
+      "name": "other-vehicle",
+      "visualize": false,
+      "color": [
+        255,
+        0,
+        0
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "30": {
+      "name": "person",
+      "visualize": true,
+      "color": [
+        30,
+        30,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "31": {
+      "name": "bicyclist",
+      "visualize": false,
+      "color": [
+        200,
+        40,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "32": {
+      "name": "motorcyclist",
+      "visualize": false,
+      "color": [
+        90,
+        30,
+        150
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "40": {
+      "name": "road",
+      "visualize": true,
+      "color": [
+        255,
+        0,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "44": {
+      "name": "parking",
+      "visualize": true,
+      "color": [
+        255,
+        150,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "48": {
+      "name": "sidewalk",
+      "visualize": true,
+      "color": [
+        75,
+        0,
+        75
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "49": {
+      "name": "other-ground",
+      "visualize": true,
+      "color": [
+        75,
+        0,
+        175
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "50": {
+      "name": "building",
+      "visualize": false,
+      "color": [
+        0,
+        200,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "51": {
+      "name": "fence",
+      "visualize": true,
+      "color": [
+        50,
+        120,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "52": {
+      "name": "other-structure",
+      "visualize": false,
+      "color": [
+        0,
+        150,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "60": {
+      "name": "lane-marking",
+      "visualize": true,
+      "color": [
+        170,
+        255,
+        150
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "70": {
+      "name": "vegetation",
+      "visualize": true,
+      "color": [
+        0,
+        175,
+        0
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "71": {
+      "name": "trunk",
+      "visualize": false,
+      "color": [
+        0,
+        60,
+        135
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "72": {
+      "name": "terrain",
+      "visualize": false,
+      "color": [
+        80,
+        240,
+        150
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "80": {
+      "name": "pole",
+      "visualize": true,
+      "color": [
+        150,
+        240,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.1,
+          "min_neighbors": 30
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 500,
+        "max_cluster_size": 5000,
+        "min_cluster_volume": 0.3,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "81": {
+      "name": "traffic-sign",
+      "visualize": true,
+      "color": [
+        0,
+        0,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.1,
+          "min_neighbors": 30
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 20000,
+        "min_cluster_volume": 0.2,
+        "max_cluster_volume": 25,
+        "bbox_method": "rigid"
+      }
+    },
+    "99": {
+      "name": "other-object",
+      "visualize": false,
+      "color": [
+        255,
+        255,
+        50
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": true,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "252": {
+      "name": "moving-car",
+      "visualize": false,
+      "color": [
+        245,
+        150,
+        100
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "253": {
+      "name": "moving-bicyclist",
+      "visualize": false,
+      "color": [
+        200,
+        40,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "254": {
+      "name": "moving-person",
+      "visualize": false,
+      "color": [
+        30,
+        30,
+        255
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "255": {
+      "name": "moving-motorcyclist",
+      "visualize": false,
+      "color": [
+        90,
+        30,
+        150
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "256": {
+      "name": "moving-on-rails",
+      "visualize": false,
+      "color": [
+        255,
+        0,
+        0
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "257": {
+      "name": "moving-bus",
+      "visualize": false,
+      "color": [
+        250,
+        80,
+        100
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "258": {
+      "name": "moving-truck",
+      "visualize": false,
+      "color": [
+        180,
+        30,
+        80
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    },
+    "259": {
+      "name": "moving-other-vehicle",
+      "visualize": false,
+      "color": [
+        255,
+        0,
+        0
+      ],
+      "noise_filter": {
+        "use": true,
+        "type": "ror",
+        "sor": {
+          "mean_k": 50,
+          "stddev_mul_thres": 0.5
+        },
+        "ror": {
+          "radius": 0.2,
+          "min_neighbors": 50
+        }
+      },
+      "euclidean_clustering": {
+        "use": false,
+        "cluster_tolerance": 0.25,
+        "min_cluster_size": 50,
+        "max_cluster_size": 0,
+        "min_cluster_volume": 0,
+        "max_cluster_volume": 0,
+        "bbox_method": "rigid"
+      }
+    }
+  }
+}
