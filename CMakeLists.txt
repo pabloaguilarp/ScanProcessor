@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.22)
 project(ScanProcessor)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -8,7 +8,10 @@ set(Qt5_DIR /opt/homebrew/Cellar/qt@5/5.15.6/lib/cmake/Qt5)
 find_package(PCL 1.12 REQUIRED COMPONENTS common io visualization)
 
 # Find JSON
-find_package(nlohmann_json 3.2.0 REQUIRED)
+#find_package(nlohmann_json 3.2.0 REQUIRED)
+include(FetchContent)
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(json)
 
 # Find boost
 find_package(Boost COMPONENTS program_options)
