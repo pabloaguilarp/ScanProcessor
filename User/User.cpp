@@ -8,12 +8,40 @@
 #include <utility>
 #include <future>
 #include <chrono>
-#include "../VoxelGrid/CustomVoxelGrid.h"
-#include "../ScanProcess/ScanProcess.h"
 
 #define MUTEX_GUARD(code) mutex_.lock(); \
 code                                    \
 mutex_.unlock();
+
+void LabelsFilter::setLabels(const std::vector<int32_t>& labels)
+{
+	labels_ = labels;
+}
+
+void LabelsFilter::setCloud(const pcl::PointCloud<PointType>::Ptr& cloud)
+{
+	cloud_ = cloud;
+}
+
+pcl::PointCloud<PointType>::Ptr LabelsFilter::getFilteredPointCloud() const noexcept
+{
+	return filtered_point_cloud_;
+}
+
+void LabelsFilter::process()
+{
+	filtered_point_cloud_ = pcl::PointCloud<PointType>::Ptr(new pcl::PointCloud<PointType>());
+
+	size_t filtered_point_cloud_size = std::count_if(cloud_->begin(), cloud_->end(), [this](const PointType& p) {
+		return std::any_of(labels_.begin(), labels_.end(), [p](uint32_t val) { return p.label == val; });
+	});
+
+	filtered_point_cloud_->reserve(filtered_point_cloud_size);
+	for (const auto& p : *cloud_) {
+		if (std::any_of(labels_.begin(), labels_.end(), [p](uint32_t val) { return p.label == val; }))
+			filtered_point_cloud_->emplace_back(p);
+	}
+}
 
 User::User() {}
 
@@ -64,20 +92,9 @@ uint32_t User::process_batch(uint32_t batch_index, uint32_t init_index = 0, uint
     )
 
 
-    // Voxelize
-    pcl::CustomVoxelGrid<PointType> voxel;
-    voxel.setInputCloud(cloud_accum);
-    voxel.setLeafSize(config_.voxel_leaf_size, config_.voxel_leaf_size, config_.voxel_leaf_size);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     pcl::PointCloud<PointType>::Ptr cloud_voxel(new pcl::PointCloud<PointType>());
-    voxel.filter(*cloud_voxel);
-
-    MUTEX_GUARD(
-            std::cout << "\nBatch index: " << batch_index << "\n";
-            std::cout << "Number of points in accumulated point cloud: " << cloud_accum->size() << std::endl;
-            std::cout << "Number of points in voxelized point cloud: " << cloud_voxel->size() << std::endl;
-            std::cout << "Downsampling ratio: " << (float) cloud_voxel->size() / (float) cloud_accum->size() * 100.f
-                      << "%\n";
-    )
+    cloud_voxel = cloud_accum;
 
     for (auto &val: config_.labels_config) {
         if (!val.visualize) {
@@ -95,30 +112,7 @@ uint32_t User::process_batch(uint32_t batch_index, uint32_t init_index = 0, uint
             continue;
 
         pcl::PointCloud<PointType>::Ptr filtered_cloud(new pcl::PointCloud<PointType>());
-        if (val.use_noise_filter) {
-            switch (val.noise_filter) {
-                case Config::LabelConfig::NoiseFilter::SOR: {
-                    NoiseSORFilter<PointType> noise_filter;
-                    noise_filter.setCloud(label_cloud);
-                    noise_filter.setMeanK(val.sor_params.mean_k);
-                    noise_filter.setStdDevMulThres(val.sor_params.stddev_mul_thres);
-                    noise_filter.process();
-                    filtered_cloud = noise_filter.getFilteredPointCloud();
-                    break;
-                }
-                case Config::LabelConfig::NoiseFilter::ROR: {
-                    NoiseRORFilter<PointType> noise_filter;
-                    noise_filter.setCloud(label_cloud);
-                    noise_filter.setRadiusSearch(val.ror_params.radius);
-                    noise_filter.setMinNeighborsInRadius(val.ror_params.min_neighbors);
-                    noise_filter.process();
-                    filtered_cloud = noise_filter.getFilteredPointCloud();
-                    break;
-                }
-            }
-        } else {
-            filtered_cloud = label_cloud;
-        }
+        filtered_cloud = label_cloud;
 
         if (filtered_cloud->empty())
             continue;
@@ -136,106 +130,6 @@ uint32_t User::process_batch(uint32_t batch_index, uint32_t init_index = 0, uint
                         std::cerr << e.what() << "\n";
                     }
             )
-        }
-
-        if (val.use_clustering) {
-            // Euclidean clustering
-            EuclideanClustering<PointType> ec;
-            ec.setCloud(filtered_cloud);
-            ec.setClusterTolerance(val.euclidean_clustering_params.cluster_tolerance);
-            ec.setMinClusterSize(val.euclidean_clustering_params.min_cluster_size);
-            ec.setMaxClusterSize(val.euclidean_clustering_params.max_cluster_size);
-            ec.process();
-            const auto clusters = ec.getClusters();
-            MUTEX_GUARD(
-                    std::cout << clusters.size() << " clusters detected\n";
-            )
-            if (clusters.empty())
-                continue;
-
-            // Calculate bounding box for each cluster
-            int j = 0;
-            for (const auto &cluster: clusters) {
-                if (cluster->empty()) {
-                    j++;
-                    continue;
-                }
-
-                BBData<PointType> bb_data;
-                const auto ns = std::string("bbox_") + std::to_string(j) + "_" + std::to_string(val.label_id) + "_" +
-                                std::to_string(batch_index);
-
-                if (val.euclidean_clustering_params.bbox_method == Config::LabelConfig::BBoxMethod::Oriented) {
-                    MUTEX_GUARD(
-                            std::cerr << "Oriented bounding box method in not implemented currently. "
-                                         "Rigid bounding box will be calculated\n";
-                            val.euclidean_clustering_params.bbox_method = Config::LabelConfig::BBoxMethod::Rigid;
-                    )
-                }
-
-                switch (val.euclidean_clustering_params.bbox_method) {
-                    case Config::LabelConfig::BBoxMethod::Oriented: {
-                        break;
-                    }
-                    case Config::LabelConfig::BBoxMethod::Rigid: {
-                        const auto bbox = calculateRigidBoundingBox<PointType>(cluster);
-                        /*viewer_->addCube(bbox.minPoint.x, bbox.maxPoint.x,
-                                         bbox.minPoint.y, bbox.maxPoint.y,
-                                         bbox.minPoint.z, bbox.maxPoint.z,
-                                         1.0, 1.0, 1.0,
-                                         ns);*/
-                        bb_data = bbox;
-                        break;
-                    }
-                }
-
-                auto bb_length = bb_data.maxPoint.x - bb_data.minPoint.x;
-                auto bb_width = bb_data.maxPoint.y - bb_data.minPoint.y;
-                auto bb_height = bb_data.maxPoint.z - bb_data.minPoint.z;
-                auto bb_volume = bb_length * bb_width * bb_height;
-
-                if (bb_volume < val.euclidean_clustering_params.min_cluster_volume) {
-                    j++;
-                    continue;
-                }
-                if (bb_volume > val.euclidean_clustering_params.max_cluster_volume) {
-                    j++;
-                    continue;
-                }
-
-                MUTEX_GUARD(
-                        if (val.visualize) {
-                            viewer_->addCube(bb_data.minPoint.x, bb_data.maxPoint.x,
-                                             bb_data.minPoint.y, bb_data.maxPoint.y,
-                                             bb_data.minPoint.z, bb_data.maxPoint.z,
-                                             1.0, 1.0, 1.0,
-                                             ns);
-                            viewer_->setShapeRenderingProperties(
-                                    pcl::visualization::PCL_VISUALIZER_REPRESENTATION,
-                                    pcl::visualization::PCL_VISUALIZER_REPRESENTATION_WIREFRAME,
-                                    ns);
-                            viewer_->addText3D(scan_io_.getLabelName(val.label_id),
-                                               pcl::PointXYZ(bb_data.center.x, bb_data.center.y,
-                                                             bb_data.maxPoint.z + 1.f),
-                                               0.5, 1.0, 1.0, 1.0, ns + "_text");
-
-                            visualizePointCloud_<PointType>(cluster,
-                                                            "cluster_" + std::to_string(j) + "_label_" +
-                                                            std::to_string(val.label_id)
-                                                            + "_" + std::to_string(batch_index));
-                        }
-                )
-
-                j++;
-            }
-        } else {
-            if (val.visualize) {
-                MUTEX_GUARD(
-                        visualizePointCloud_<PointType>(filtered_cloud,
-                                                        "cloud_label_" + std::to_string(val.label_id)
-                                                        + "_" + std::to_string(batch_index));
-                )
-            }
         }
     }
 

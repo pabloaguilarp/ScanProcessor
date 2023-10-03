@@ -7,7 +7,6 @@
 #include <pcl/common/centroid.h>
 #include "pcl/filters/voxel_grid.h"
 #include "pcl/point_cloud.h"
-#include  <boost/sort/spreadsort/integer_sort.hpp>
 
 namespace pcl {
     struct cloud_point_index_idx {

@@ -9,6 +9,25 @@
 
 #include "pcl/visualization/pcl_visualizer.h"
 
+#include <mutex>
+
+class LabelsFilter {
+private:
+    std::vector<int32_t> labels_;
+public:
+    void setLabels(const std::vector<int32_t>& labels);
+
+    void setCloud(const pcl::PointCloud<PointType>::Ptr& cloud);
+
+    pcl::PointCloud<PointType>::Ptr getFilteredPointCloud() const noexcept;
+
+    void process();
+
+private:
+    pcl::PointCloud<PointType>::Ptr cloud_ = nullptr;
+    pcl::PointCloud<PointType>::Ptr filtered_point_cloud_ = nullptr;
+};
+
 class User {
 private:
     Config config_;

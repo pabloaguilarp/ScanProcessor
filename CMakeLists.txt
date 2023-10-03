@@ -3,12 +3,10 @@ project(ScanProcessor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Find PCL (use hardcoded Qt5 root path)
-set(Qt5_DIR /opt/homebrew/Cellar/qt@5/5.15.6/lib/cmake/Qt5)
+# Find PCL
 find_package(PCL 1.12 REQUIRED COMPONENTS common io visualization)
 
 # Find JSON
-#find_package(nlohmann_json 3.2.0 REQUIRED)
 include(FetchContent)
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
 FetchContent_MakeAvailable(json)
@@ -17,7 +15,7 @@ FetchContent_MakeAvailable(json)
 find_package(Boost COMPONENTS program_options)
 
 # Create target
-add_executable(ScanProcessor main.cpp ScanIO/ScanIO.cpp ScanIO/ScanIO.h common.h VoxelGrid/CustomVoxelGrid.cpp VoxelGrid/CustomVoxelGrid.h argparse.h ScanProcess/ScanProcess.cpp ScanProcess/ScanProcess.h User/User.cpp User/User.h)
+add_executable(ScanProcessor main.cpp ScanIO/ScanIO.cpp ScanIO/ScanIO.h User/User.cpp User/User.h common.h argparse.h)
 
 # Link PCL
 target_include_directories(ScanProcessor PUBLIC ${PCL_INCLUDE_DIRS})

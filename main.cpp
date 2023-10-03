@@ -1,8 +1,10 @@
 #include <iostream>
-#include "User/User.h"
 
-// --scans-dir "/Volumes/TOSHIBA EXT/log_2911/world_frame/scan_0000003250-scan_0000003499" --labels-dir "/Volumes/My Passport/results_2911/scan_0000003250-scan_0000003499/predictions" --ranges-dir "/Volumes/My Passport/results_2911/scan_0000003250-scan_0000003499/ranges" --voxel-leaf-size 0.03 -v semantics --max-range 20.0 --multithread 1
-// --scans-dir "/Volumes/TOSHIBA EXT/log_2911/world_frame/scan_0000004750-scan_0000004999" --labels-dir "/Volumes/My Passport/results_2911/scan_0000004750-scan_0000004999/predictions" --ranges-dir "/Volumes/My Passport/results_2911/scan_0000004750-scan_0000004999/ranges" --voxel-leaf-size 0.03 -v semantics --max-range 20.0 --multithread 0
+#include <pcl/visualization/pcl_visualizer.h>
+
+#include "argparse.h"
+#include "ScanIO/ScanIO.h"
+#include "User/User.h"
 
 int main(int argc, char **argv) {
     Config config;
@@ -11,7 +13,7 @@ int main(int argc, char **argv) {
     }
     config.print();
 
-    pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("Viewer"));
+	pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("Viewer"));
     viewer->initCameraParameters();
 
     User user(config);
